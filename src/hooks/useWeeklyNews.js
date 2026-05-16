@@ -2,25 +2,15 @@ import { useState, useEffect, useCallback } from 'react';
 
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 const BASE_URL = 'https://newsapi.org/v2';
-const CACHE_KEY = 'weekly_news_cache';
+const CACHE_KEY = 'weekly_news_cache_v2';
 const CACHE_DURATION = 30 * 60 * 1000;
 
-const DOMAINS = [
-  'reuters.com', 'bbc.co.uk', 'apnews.com', 'cnn.com', 'aljazeera.com',
-  'npr.org', 'nytimes.com', 'bloomberg.com', 'cnbc.com', 'wsj.com',
-  'fortune.com', 'techcrunch.com', 'theverge.com', 'wired.com',
-  'engadget.com', 'livescience.com', 'nature.com', 'sciencedaily.com',
+// NewsAPI source IDs for trusted outlets (used with top-headlines endpoint)
+const TRUSTED_SOURCES = [
+  'reuters', 'bbc-news', 'associated-press', 'cnn', 'al-jazeera-english',
+  'bloomberg', 'cnbc', 'the-wall-street-journal', 'fortune',
+  'techcrunch', 'the-verge', 'wired', 'engadget',
 ].join(',');
-
-function getDateRange() {
-  const today = new Date();
-  const from = new Date();
-  from.setDate(today.getDate() - 7);
-  return {
-    from: from.toISOString().split('T')[0],
-    to: today.toISOString().split('T')[0],
-  };
-}
 
 function getCached() {
   try {
@@ -59,7 +49,7 @@ export function useWeeklyNews() {
 
     if (!forceRefresh) {
       const cached = getCached();
-      if (cached) {
+      if (cached && cached.length > 0) {
         setArticles(cached);
         setLoading(false);
         return;
@@ -70,21 +60,16 @@ export function useWeeklyNews() {
     setError(null);
 
     try {
-      const { from, to } = getDateRange();
       const baseParams = {
-        domains: DOMAINS,
-        sortBy: 'popularity',
-        from,
-        to,
-        language: 'en',
-        pageSize: '15',
+        sources: TRUSTED_SOURCES,
+        pageSize: '20',
       };
 
       let url;
       if (isProd) {
-        url = `/api/news?${new URLSearchParams({ ...baseParams, endpoint: 'everything' })}`;
+        url = `/api/news?${new URLSearchParams({ ...baseParams, endpoint: 'top-headlines' })}`;
       } else {
-        url = `${BASE_URL}/everything?${new URLSearchParams({ ...baseParams, apiKey: API_KEY })}`;
+        url = `${BASE_URL}/top-headlines?${new URLSearchParams({ ...baseParams, apiKey: API_KEY })}`;
       }
 
       const response = await window.fetch(url);
@@ -99,7 +84,9 @@ export function useWeeklyNews() {
       );
 
       setArticles(filtered);
-      setCached(filtered);
+      if (filtered.length > 0) {
+        setCached(filtered);
+      }
       setError(null);
     } catch (err) {
       setError(err.message || 'Failed to fetch');
