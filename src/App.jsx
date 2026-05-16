@@ -5,6 +5,7 @@ import CategoryTabs from './components/CategoryTabs';
 import SearchBar from './components/SearchBar';
 import NewsCard from './components/NewsCard';
 import VideoSection from './components/VideoSection';
+import WeeklyTopNews from './components/WeeklyTopNews';
 
 function SkeletonCard() {
   return (
@@ -150,6 +151,9 @@ export default function App() {
           </button>
         </div>
       </header>
+
+      {/* Weekly Top News */}
+      <WeeklyTopNews />
 
       {/* Category Tabs */}
       <CategoryTabs activeCategory={activeCategoryId} onSelect={handleTabChange} />
