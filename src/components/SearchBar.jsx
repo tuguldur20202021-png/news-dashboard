@@ -3,7 +3,7 @@ export default function SearchBar({ value, onChange }) {
     <div className="relative flex-1 max-w-md">
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <svg
-          className="w-4 h-4 text-[#8b949e]"
+          className="w-4 h-4 text-[#7c4dff]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -24,17 +24,19 @@ export default function SearchBar({ value, onChange }) {
         placeholder="Search articles..."
         className="
           w-full pl-10 pr-4 py-2.5 rounded-xl
-          bg-[#161b22] border border-[#30363d]
+          bg-[#111827]/60 backdrop-blur-md
+          border border-[#7c4dff]/10
           text-white placeholder-[#8b949e]
           text-sm focus:outline-none search-glow
-          transition-all duration-200
-          focus:border-[#7c4dff]
+          transition-all duration-300
+          focus:border-[#7c4dff]/40
+          hover:border-[#7c4dff]/20
         "
       />
       {value && (
         <button
           onClick={() => onChange('')}
-          className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#8b949e] hover:text-white cursor-pointer"
+          className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#8b949e] hover:text-[#7c4dff] cursor-pointer transition-colors duration-200"
           aria-label="Clear search"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

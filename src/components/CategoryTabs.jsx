@@ -19,7 +19,7 @@ export default function CategoryTabs({ activeCategory, onSelect }) {
   }, [activeCategory]);
 
   return (
-    <div className="sticky top-[72px] z-40 bg-[#0d1117]/95 backdrop-blur-md border-b border-[#21262d]">
+    <div className="sticky top-[72px] z-40 tabs-glass">
       <div
         ref={scrollRef}
         className="tab-scroll flex gap-2 overflow-x-auto px-4 py-3 max-w-7xl mx-auto"
@@ -33,10 +33,10 @@ export default function CategoryTabs({ activeCategory, onSelect }) {
               onClick={() => onSelect(cat.id)}
               className={`
                 flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium
-                transition-all duration-200 cursor-pointer whitespace-nowrap
+                transition-all duration-300 cursor-pointer whitespace-nowrap
                 ${isActive
-                  ? 'bg-[#7c4dff] text-white shadow-lg shadow-[#7c4dff]/25 tab-active'
-                  : 'bg-[#161b22] text-[#8b949e] hover:bg-[#21262d] hover:text-white border border-[#30363d]'
+                  ? 'bg-gradient-to-r from-[#7c4dff] to-[#651fff] text-white shadow-lg shadow-[#7c4dff]/30 tab-active scale-105'
+                  : 'glass-card text-[#8b949e] hover:text-white hover:border-[#7c4dff]/30'
                 }
               `}
               id={`tab-${cat.id}`}
