@@ -164,11 +164,12 @@ export default function App() {
 
         {/* Main Content */}
         <main className="pt-6">
+          {/* Weekly Top News always visible (except videos tab) */}
+          {!isVideoTab && <WeeklyTopNews />}
+
           {isVideoTab ? (
             <VideoSection />
-          ) : isWeeklyTab ? (
-            <WeeklyTopNews />
-          ) : loading ? (
+          ) : isWeeklyTab ? null : loading ? (
             <LoadingGrid />
           ) : error ? (
             <ErrorState message={error} onRetry={handleRefresh} />
