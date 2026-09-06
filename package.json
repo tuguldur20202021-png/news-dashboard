@@ -9,13 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^13.2.0",
+    "lucide-react": "^1.41.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.4.1",
-    "vite": "^6.3.5",
     "@tailwindcss/vite": "^4.1.5",
-    "tailwindcss": "^4.1.5"
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^4.4.1",
+    "puppeteer": "^25.10.0",
+    "tailwindcss": "^4.1.5",
+    "typescript": "^7.0.2",
+    "vite": "^6.3.5"
   }
 }
